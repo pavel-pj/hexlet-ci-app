@@ -15,9 +15,22 @@ jobs:
       # run – произвольная bash-команда
       # ls -la выведет содержимое текущего репозитория
       - uses: actions/setup-node@v4
-        with:
-        node-version: '18.x'
-        cache: 'npm' # ускоряет повторные сборки
-      - run: npm ci
-      - run: npm test
+
+
+        # Ставим зависимости
+                - run: npm install
+        # Запускаем линтер
+                - run: npm run lint
+        # Запускаем тесты
+        # у шагов может быть имя, иногда это помогает отладке
+        # имя выводится на Github при просмотре сборки
+                - name: run tests
+                  run: npm test # name и run о
+    steps:
+      - name: Checkout
+      id: checkout
+      uses: actions/checkout@v4
+
+      - name: Print Hello from Hexlet
+       uses: hexlet-components/hello-from-hexlet-action@release
 
