@@ -14,11 +14,10 @@ jobs:
       - uses: actions/checkout@v4
       # run – произвольная bash-команда
       # ls -la выведет содержимое текущего репозитория
-      - run: make setup
-      - run: make test
       - uses: actions/setup-node@v4
         with:
         node-version: '18.x'
         cache: 'npm' # ускоряет повторные сборки
-        - run: npm ci
-        - run: npm test
+      - run: npm ci
+      - run: npm test
+
