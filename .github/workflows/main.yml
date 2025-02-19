@@ -7,13 +7,23 @@ jobs:
   build:
     # операционная система для работы воркфлоу
     runs-on: ubuntu-latest
+    strategy:
+       matrix:
+          node-version: [18.x]
     steps: # список шагов, которые надо выполнить
       # экшен — выполняет какую-то задачу
       # checkout — клонирует репозиторий
       - uses: actions/checkout@v4
       # run – произвольная bash-команда
       # ls -la выведет содержимое текущего репозитория
-      - run: make setup
-      - run: make test
-      - run: make lint
+      - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: 'npm'
+       - run: make install
+       - run: make lint
+       - run: make test
+       - uses: hexlet-components/hello-from-hexlet-action@release
+
       
